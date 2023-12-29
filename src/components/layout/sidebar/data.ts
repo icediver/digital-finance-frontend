@@ -81,22 +81,22 @@ export const downMenu: IMenu[] = [
 	},
 
 	{
-		title: '/Apple',
+		title: 'Apple',
 		Icon: IoLogoApple,
 		class:
 			'border border-inactive text-inactive shadow-[inset_0_0_25px_rgba(254,82,52,0.2)]',
 		path: '/apple',
 	},
 	{
-		title: 'Messages',
+		title: 'Amazon',
 		Icon: IoLogoAmazon,
 		class:
 			'border border-red-800 text-red-800 shadow-[inset_0_0_25px_rgba(254,82,52,0.2)]',
 
-		path: '/messages',
+		path: '/amazon',
 	},
 	{
-		title: 'AddInstrument',
+		title: '',
 		Icon: FiPlus,
 		path: '/add-instrument',
 	},

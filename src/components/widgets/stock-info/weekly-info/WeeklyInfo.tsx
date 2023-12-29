@@ -4,7 +4,7 @@ interface IWeeklyInfo {
 	prevClose: string;
 	change: number;
 	marketGap: string;
-	peRatio: string;
+	peRatio: number;
 }
 
 export function WeeklyInfo({

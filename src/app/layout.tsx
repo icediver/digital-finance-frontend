@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '../assets/styles/globals.scss';
 import { Layout } from '@/components/layout/Layout';
+import { Providers } from '@/providers/Providers';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,9 +19,11 @@ export default function RootLayout({
 	return (
 		<html lang="en" className="darkmode" suppressHydrationWarning>
 			<body className={inter.className}>
-				<div className="h-screen w-screen bg-gray-background">
-					<Layout>{children}</Layout>
-				</div>
+				<Providers>
+					<div className="h-screen w-screen bg-gray-background">
+						<Layout>{children}</Layout>
+					</div>
+				</Providers>
 			</body>
 		</html>
 	);

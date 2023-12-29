@@ -132,7 +132,9 @@ const CustomTooltip = ({
 						<p className="flex w-full justify-between">
 							<span className="text-xs">
 								<span className="text-xss text-inactive">$&nbsp;</span>
-								{`${payload[0]?.value.toLocaleString()} M`}
+								{payload[0].value
+									? `${payload[0].value.toLocaleString()} M`
+									: ''}
 							</span>
 
 							<span className="text-secondary">+21%</span>

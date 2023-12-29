@@ -91,7 +91,6 @@ export function Sidebar({ isSideBarOpen, setIsSideBarOpen }: ISidebar) {
 					>
 						<button
 							className="flex items-center justify-start gap-4"
-							style={{ color: item.color }}
 							onClick={() => setactiveStock(index)}
 						>
 							<div

@@ -1,0 +1,63 @@
+import { API_URL } from '@/constants/api.constants';
+import { IUser } from '@/types/auth.interface';
+
+interface IAuthResponse {
+	accessToken: string;
+	user: IUser;
+}
+
+export interface IFormData {
+	email: string;
+	password: string;
+}
+
+class AuthService {
+	async login(data: IFormData): Promise<IAuthResponse> {
+		const response = await fetch(`${API_URL}/auth/login`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(data),
+		});
+
+		if (!response.ok) {
+			throw new Error('Something went wrong');
+		}
+		const responseData: IAuthResponse = await response.json();
+		return responseData;
+	}
+	async register(data: IFormData): Promise<IAuthResponse> {
+		const response = await fetch(`${API_URL}/auth/register`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(data),
+		});
+		if (!response.ok) {
+			throw new Error('Something went wrong');
+		}
+		const responseData: IAuthResponse = await response.json();
+		return responseData;
+	}
+	async users(): Promise<IUser[]> {
+		const token = localStorage.getItem('token');
+		const response = await fetch(`${API_URL}/users`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
+		});
+		if (!response.ok) {
+			throw new Error('Something went wrong');
+		}
+		const responseData: IUser[] = await response.json();
+		return responseData;
+	}
+}
+
+export const authService = new AuthService();
+
+export default authService;

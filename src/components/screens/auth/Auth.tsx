@@ -1,6 +1,8 @@
 'use client';
 import Button from '@/components/ui/button/Button';
-import authService, { IFormData } from '@/services/auth.service';
+import { saveTokenStorage } from '@/services/auth/auth.helper';
+import { authService } from '@/services/auth/auth.service';
+import { IFormData } from '@/services/auth/auth.types';
 
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
@@ -13,9 +15,9 @@ export function Auth() {
 	const { push } = useRouter();
 	const { mutate: mutateLogin, isPending: isLoginPending } = useMutation({
 		mutationKey: ['login'],
-		mutationFn: (data: IFormData) => authService.login(data),
-		onSuccess: (data) => {
-			localStorage.setItem('token', data.accessToken);
+		mutationFn: (data: IFormData) => authService.main('login', data),
+		onSuccess: ({ data }) => {
+			saveTokenStorage(data.accessToken);
 			push('/');
 			reset();
 		},
@@ -25,9 +27,9 @@ export function Auth() {
 	});
 	const { mutate: mutateRegister, isPending: isRegisterPending } = useMutation({
 		mutationKey: ['register'],
-		mutationFn: (data: IFormData) => authService.register(data),
-		onSuccess: (data) => {
-			localStorage.setItem('token', data.accessToken);
+		mutationFn: (data: IFormData) => authService.main('register', data),
+		onSuccess: ({ data }) => {
+			saveTokenStorage(data.accessToken);
 			push('/');
 			reset();
 		},

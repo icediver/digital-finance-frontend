@@ -1,14 +1,8 @@
 import clsx from 'clsx';
-import { useEffect, useState } from 'react';
 
 import { IconType } from 'react-icons';
 import { MdOutlineWatchLater } from 'react-icons/md';
-import Select, {
-	ActionMeta,
-	ControlProps,
-	SingleValue,
-	components,
-} from 'react-select';
+import Select, { SingleValue, components } from 'react-select';
 interface ISelectDepartment {
 	selectDepartmentHandler: (department: string) => void;
 }

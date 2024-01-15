@@ -25,6 +25,15 @@ export const authService = {
 		);
 	},
 
+	async confirmEmail(token: string) {
+		const response = await axiosClassic.post<IAuthResponse>(
+			`/auth/confirm?token=${token}`
+		);
+		if (response.data.accessToken) saveTokenStorage(response.data.accessToken);
+
+		return response;
+	},
+
 	async logout() {
 		const response = await axiosClassic.post<boolean>('/auth/logout');
 

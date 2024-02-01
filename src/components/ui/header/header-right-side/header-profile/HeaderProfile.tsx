@@ -1,21 +1,23 @@
+import { useProfile } from '@/hooks/useProfile';
 import { getAccessToken } from '@/services/auth/auth.helper';
 import { authService } from '@/services/auth/auth.service';
-import { useMutation } from '@tanstack/react-query';
+import { userService } from '@/services/user.service';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FaChevronDown } from 'react-icons/fa6';
 
 interface IHeaderProfile {}
-const currentUser = {
-	email: 'ilon-mask@x.com',
-	name: 'Ilon Mask',
-	avatarPath: 'https://i.pravatar.cc/300?img=56',
-	phone: '+7 (876) 591-00-11',
-};
 export function HeaderProfile({}: IHeaderProfile) {
 	const [isLogoutWindowOpen, setIsLogoutWindowOpen] = useState(false);
 	const { push } = useRouter();
+	const { data, isLoading, refetch, isSuccess } = useQuery({
+		queryKey: ['get profile'],
+		queryFn: () => userService.getProfile(),
+		select: ({ data }) => data,
+	});
+
 	const { mutate: mutateLogout, isPending: isLogoutPending } = useMutation({
 		mutationKey: ['logout'],
 		mutationFn: () => authService.logout(),
@@ -28,20 +30,20 @@ export function HeaderProfile({}: IHeaderProfile) {
 	return (
 		<div className="relative flex items-center gap-3">
 			<Image
-				src={currentUser.avatarPath}
+				src={data?.avatarPath || '/uploads/avatars/unknown_user.jpg'}
 				width={30}
 				height={30}
-				alt={currentUser.name}
+				alt={data?.name || 'name'}
 				className="rounded-full"
 			/>
 			<div>
 				<div className="flex justify-between text-xs">
-					<div>{currentUser.name}</div>
+					<div>{data?.name}</div>
 					<button onClick={() => setIsLogoutWindowOpen(!isLogoutWindowOpen)}>
 						<FaChevronDown />
 					</button>
 				</div>
-				<div className="text-xs">{currentUser.email}</div>
+				<div className="text-xs">{data?.email}</div>
 			</div>
 			{isLogoutWindowOpen && (
 				<button

@@ -1,6 +1,6 @@
 import { axiosClassic } from '@/api/axios';
-import { removeFromStorage, saveTokenStorage } from './auth.helper';
 import { IAuthResponse, IFormData } from './auth.types';
+import { removeFromStorage, saveTokenStorage } from './auth.helper';
 
 export enum EnumTokens {
 	'ACCESS_TOKEN' = 'accessToken',
@@ -21,7 +21,7 @@ export const authService = {
 
 	async getNewTokens() {
 		const response = await axiosClassic.post<IAuthResponse>(
-			'/auth/login/accesToken'
+			'/auth/login/access-token'
 		);
 	},
 
@@ -29,7 +29,10 @@ export const authService = {
 		const response = await axiosClassic.post<IAuthResponse>(
 			`/auth/confirm?token=${token}`
 		);
-		if (response.data.accessToken) saveTokenStorage(response.data.accessToken);
+
+		if (response.data.accessToken) {
+			saveTokenStorage(response.data.accessToken);
+		}
 
 		return response;
 	},

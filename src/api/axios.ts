@@ -14,11 +14,12 @@ export const axiosClassic = axios.create(axiosOptions);
 
 export const instance = axios.create(axiosOptions);
 
-instance.interceptors.response.use((config) => {
+instance.interceptors.request.use((config) => {
 	const accessToken = getAccessToken();
-	if (config.headers && accessToken) {
+	if (config?.headers && accessToken) {
 		config.headers.Authorization = `Bearer ${accessToken}`;
 	}
+
 	return config;
 });
 

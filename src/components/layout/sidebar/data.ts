@@ -53,7 +53,7 @@ export const topMenu: IMenu[] = [
 	{
 		title: 'Profile',
 		Icon: HiUser,
-		path: '/profile',
+		path: '/auth/profile',
 	},
 ];
 

@@ -17,7 +17,7 @@ export function Auth() {
 		mutationKey: ['login'],
 		mutationFn: (data: IFormData) => authService.main('login', data),
 		onSuccess: ({ data }) => {
-			saveTokenStorage(data.accessToken);
+			// saveTokenStorage(data.accessToken);
 			push('/');
 			reset();
 		},
@@ -29,8 +29,8 @@ export function Auth() {
 		mutationKey: ['register'],
 		mutationFn: (data: IFormData) => authService.main('register', data),
 		onSuccess: ({ data }) => {
-			saveTokenStorage(data.accessToken);
-			push('/');
+			// saveTokenStorage(data.accessToken);
+			push('/auth/confirm-email');
 			reset();
 		},
 		onError: (error) => {
